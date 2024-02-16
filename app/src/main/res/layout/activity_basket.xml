@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BasketActivity">
+
+
+    <Button
+        android:id="@+id/discard_umbrella"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="72dp"
+        android:onClick="discard_umbrella"
+        android:text="Discard Umbrella"
+        app:layout_constraintStart_toEndOf="@+id/add_chair"
+        app:layout_constraintTop_toBottomOf="@+id/mainPage"
+        tools:ignore="MissingConstraints"
+        />
+
+    <Button
+        android:id="@+id/discard_chair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:onClick="discard_chair"
+        android:text="Discard Chair"
+        app:layout_constraintStart_toEndOf="@+id/add_chair"
+        app:layout_constraintTop_toBottomOf="@+id/mainPage"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/add_umbrella"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="add_umbrella"
+        android:text="Add Umbrella"
+        app:layout_constraintEnd_toEndOf="@+id/add_chair"
+        app:layout_constraintStart_toStartOf="@+id/add_chair"
+        app:layout_constraintTop_toBottomOf="@+id/add_chair"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="161dp"
+        android:layout_height="195dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/basket" />
+
+    <Button
+        android:id="@+id/useQr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:onClick="useQr"
+        android:text="Use QR code to rent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/mainPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="backToMain"
+        android:text="Back To Main Page"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/useQr" />
+
+    <Button
+        android:id="@+id/add_chair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="add_chair"
+        android:text="Add Chair"
+        app:layout_constraintTop_toBottomOf="@+id/mainPage"
+        tools:layout_editor_absoluteX="26dp"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
