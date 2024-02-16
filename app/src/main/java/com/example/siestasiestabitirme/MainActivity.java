@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 // github denemesi
     //github denemesi 2
+    // github denemesi 3
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
