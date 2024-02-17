@@ -20,6 +20,9 @@
         tools:ignore="ExtraText"
         tools:targetApi="31">
         <activity
+            android:name=".FeedbackActivity"
+            android:exported="false" />
+        <activity
             android:name=".PaymentSuccessfulActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".qrscreen"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".CaptureAct"
             android:screenOrientation="portrait"
