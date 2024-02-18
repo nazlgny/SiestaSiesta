@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 // github denemesi
     //github denemesi 2
     // github denemesi 3
-
+    //git denemesi nehir
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
