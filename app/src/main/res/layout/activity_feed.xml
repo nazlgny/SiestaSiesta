@@ -9,6 +9,12 @@
     android:id="@+id/coordinator"
     tools:context=".FeedbackActivity">
 
+    <EditText
+        android:id="@+id/feedback"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:hint="Feedback" />
+
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
@@ -16,14 +22,7 @@
         android:layout_marginTop="20dp"
         android:numStars="5"
         android:rating="0"
-        android:stepSize="1.0"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:id="@+id/feedback"
-        android:hint="Feedback"
-        />
+        android:stepSize="1.0" />
 
     <Button
         android:layout_width="219dp"

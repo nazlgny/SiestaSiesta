@@ -88,19 +88,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng istanbul = new LatLng(41.0082, 28.9784);
+        // Ankara'nın merkezi için koordinatlar
+        LatLng ankara = new LatLng(39.9334, 32.8597);
         istanbulMarker = mMap.addMarker(new MarkerOptions()
-                .position(istanbul)
-                .title("Marker in Istanbul")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .position(ankara)
+                .title("Marker in Ankara")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))); // Yeşil işaretleyici
 
-        LatLng istanbulWest = new LatLng(41.0082, 28.9684);
+        // Ankara'nın batısı için biraz batıya kaydırılmış koordinatlar
+        LatLng ankaraWest = new LatLng(39.9334, 32.8497);
         istanbulWestMarker = mMap.addMarker(new MarkerOptions()
-                .position(istanbulWest)
-                .title("Marker west of Istanbul")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                .position(ankaraWest)
+                .title("Marker west of Ankara")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))); // Kırmızı işaretleyici
 
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(istanbul, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ankara, 10)); // Haritayı Ankara merkezine odakla ve yakınlaştır
 
         mMap.setOnMarkerClickListener(this);
     }
