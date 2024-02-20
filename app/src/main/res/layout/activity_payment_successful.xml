@@ -54,11 +54,11 @@
         android:text="SEND FEEDBACK"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
-        app:iconTint="#9C27B0"
+        app:iconTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:rippleColor="#591313"
+        app:rippleColor="#FFFFFF"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="429dp" />
 

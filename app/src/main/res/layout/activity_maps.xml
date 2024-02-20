@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8CBF8E"
+    android:background="#F3A3BC80"
     android:onClick="scanCode"
-    tools:context=".MapsActivity">
+    tools:context=".MapsActivity"
+    >
 
     <fragment
         android:id="@+id/map"
@@ -20,38 +21,35 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="76dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/homepagebutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_scan"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map" />
-
-    <ImageButton
         android:id="@+id/basketButton"
-        android:layout_width="84dp"
-        android:layout_height="56dp"
+        android:layout_width="119dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="28dp"
+        android:background="@android:color/transparent"
         android:onClick="basketButtonClicked"
-        android:src="@drawable/profilebutton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/baskt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.947"
+        app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toEndOf="@+id/btn_scan"
-        app:layout_constraintTop_toBottomOf="@+id/map" />
+        app:layout_constraintTop_toBottomOf="@+id/map"
+        app:layout_constraintVertical_bias="0.357" />
 
     <ImageButton
         android:id="@+id/btn_scan"
-        android:layout_width="111dp"
-        android:layout_height="60dp"
+        android:layout_width="134dp"
+        android:layout_height="53dp"
+        android:background="@android:color/transparent"
         android:onClick="qrScannerClicked"
-        android:src="@drawable/qrbutton"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ensonqr"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/basketButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

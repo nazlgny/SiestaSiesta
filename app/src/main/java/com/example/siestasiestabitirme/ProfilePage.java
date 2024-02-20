@@ -1,8 +1,5 @@
 package com.example.siestasiestabitirme;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,11 +7,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.siestasiestabitirme.databinding.ActivityProfilePageBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,8 +57,8 @@ public class ProfilePage extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId()==R.id.profile){
-            Intent intentToProfilePage = new Intent(ProfilePage.this,ProfilePage.class);
-            startActivity(intentToProfilePage);
+            Intent intentToMapsActivity = new Intent(ProfilePage.this,MapsActivity.class);
+            startActivity(intentToMapsActivity);
         }
         else if(item.getItemId()==R.id.signout){
             //Sign out
