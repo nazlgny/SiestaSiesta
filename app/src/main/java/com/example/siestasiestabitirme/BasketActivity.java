@@ -79,8 +79,7 @@ public class BasketActivity  extends AppCompatActivity {
     }
 
     private void AddChair() {
-        // Firestore'dan ürün miktarını azalt
-        productRef.update("quantity", FieldValue.increment(-1))
+        productRef.update("inUse", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -92,35 +91,11 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepete eklenirken hata oluştu! " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-
-
-                });
-    }
-
-    private void AddUmbrella() {
-        // Firestore'dan ürün miktarını azalt
-        productRef2.update("quantity", FieldValue.increment(-1))
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(BasketActivity.this, "Şemsiye sepete eklendi!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(BasketActivity.this, "Şemsiye sepete eklenirken hata oluştu! " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
-
-
                 });
     }
 
     private void DiscardChair() {
-        // Firestore'dan ürün miktarını arttır
-        productRef.update("quantity", FieldValue.increment(+1))
+        productRef.update("inUse", false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -132,15 +107,27 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepetten atılırken hata oluştu! " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                });
+    }
 
-
-
+    private void AddUmbrella() {
+        productRef2.update("inUse", true)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(BasketActivity.this, "Şemsiye sepete eklendi!", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(BasketActivity.this, "Şemsiye sepete eklenirken hata oluştu! " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 
     private void DiscardUmbrella() {
-        // Firestore'dan ürün miktarını arttır
-        productRef2.update("quantity", FieldValue.increment(+1))
+        productRef2.update("inUse", false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -152,11 +139,9 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepetten atılırken hata oluştu! " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-
-
                 });
     }
+
     public void backToMain(View View) {
         Intent intent = new Intent(BasketActivity.this, MapsActivity.class);
         startActivity(intent);
