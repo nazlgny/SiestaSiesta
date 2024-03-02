@@ -130,6 +130,10 @@ public class BasketActivity  extends AppCompatActivity {
                 AddChair();
                 startChairTimer();
             }
+            else if(result.getContents().equals("2tapFqBsHzLNFVsTJ63S")){
+                AddUmbrella();
+                startUmbrellaTimer();
+            }
         } else {
             // QR kodu okunamadı veya içerik boş ise
             new AlertDialog.Builder(BasketActivity.this)
