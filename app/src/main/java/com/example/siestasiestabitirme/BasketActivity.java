@@ -2,20 +2,23 @@ package com.example.siestasiestabitirme;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.Locale;
 
@@ -52,6 +55,16 @@ public class BasketActivity  extends AppCompatActivity {
         timerTextView = findViewById(R.id.timer_text_view);
         timerTextView2 = findViewById(R.id.timer_text_view2);
 
+
+        useQr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scanCode();
+            }
+
+
+
+        });
         add_umbrella.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,6 +114,37 @@ public class BasketActivity  extends AppCompatActivity {
 
 
     }
+
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Scan QR to rent products / Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        barLauncher.launch(options);
+    }
+
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if (result.getContents() != null) {
+            // QR kodundan elde edilen ID'yi kullanarak Firestore'daki ilgili dokümanı güncelle
+            if (result.getContents().equals("u6kqc3Aoz4wpSgVlxueV")) {
+                AddChair();
+                startChairTimer();
+            }
+        } else {
+            // QR kodu okunamadı veya içerik boş ise
+            new AlertDialog.Builder(BasketActivity.this)
+                    .setTitle("Hata!")
+                    .setMessage("QR kodu okunamadı.")
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
+    });
+
+    /*private void onQRCodeScanned(String qrData) {
+        if (qrData.equals("chair")) {
+            AddChair();
+        }
+    }*/
 
     private void AddChair() {
         chair1.update("inUse", true)
