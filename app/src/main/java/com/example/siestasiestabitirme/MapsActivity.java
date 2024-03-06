@@ -1,6 +1,5 @@
 package com.example.siestasiestabitirme;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.widget.ImageButton;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.siestasiestabitirme.databinding.ActivityMapsBinding;
@@ -29,17 +29,15 @@ import com.journeyapps.barcodescanner.ScanOptions;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     ImageButton btn_scan;
-
     ImageButton basketButton;
-
-    private FirebaseAuth auth;
-    private GoogleMap mMap;
-    private ActivityMapsBinding binding;
-    private Marker istanbulMarker;
-    private Marker istanbulWestMarker;
+    public FirebaseAuth auth;
+    public GoogleMap mMap;
+    public ActivityMapsBinding binding;
+    public Marker istanbulMarker;
+    public Marker istanbulWestMarker;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
@@ -52,6 +50,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         btn_scan=findViewById(R.id.btn_scan);
         btn_scan.setOnClickListener(v -> {
             scanCode();
+
         });
         basketButton = findViewById(R.id.basketButton); // Layout'unuzda bu ID'ye sahip bir ImageButton veya Button olduğundan emin olun
         basketButton.setOnClickListener(v -> {
@@ -61,7 +60,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
     }
-    private void scanCode() {
+    public void navigateToBasketActivity(String scanResult) {
+        Intent intent = new Intent(MapsActivity.this, BasketActivity.class);
+        intent.putExtra("scanResult", scanResult);
+        startActivity(intent);
+    }
+    public void scanCode() {
         ScanOptions options =new ScanOptions();
         options.setPrompt("Scan QR to rent products / Volume up to flash on");
         options.setBeepEnabled(true);
@@ -70,18 +74,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         barLauncher.launch(options);
     }
 
-    ActivityResultLauncher<ScanOptions> barLauncher= registerForActivityResult(new ScanContract(), result-> {
-        if(result.getContents()!=null)
-        {
-            AlertDialog.Builder builder=new AlertDialog.Builder(MapsActivity.this);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int which) {
-                    dialogInterface.dismiss();
-                }
-            }).show();
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if (result.getContents() != null) {
+            // QR kodundan elde edilen ID'yi kullanarak Firestore'daki ilgili dokümanı güncelle
+            if (result.getContents().equals("u6kqc3Aoz4wpSgVlxueV")) {
+                navigateToBasketActivity(result.getContents());
+            }
+            else if(result.getContents().equals("2tapFqBsHzLNFVsTJ63S")){
+                navigateToBasketActivity(result.getContents());
+            }
+        } else {
+            // QR kodu okunamadı veya içerik boş ise
+            new AlertDialog.Builder(MapsActivity.this)
+                    .setTitle("Hata!")
+                    .setMessage("QR kodu okunamadı.")
+                    .setPositiveButton("OK", null)
+                    .show();
         }
     });
     @Override

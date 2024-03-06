@@ -25,26 +25,37 @@ import java.util.Locale;
 
 public class BasketActivity  extends AppCompatActivity {
 
-    private Handler umbrellaHandler = new Handler();
-    private Handler chairHandler = new Handler();
-    private TextView timerTextView,timerTextView2;
-    private long umbrellaTimeLeftInMillis = 0;
-    private long chairTimeLeftInMillis = 0;
-    private boolean umbrellaTimerRunning;
-    private boolean chairTimerRunning;
-    private long umbrellaStartTimeInMillis;
-    private long chairStartTimeInMillis;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DocumentReference chair1 = db.collection("chair").document("u6kqc3Aoz4wpSgVlxueV");
-    private DocumentReference productRef2 = db.collection("umbrella").document("2tapFqBsHzLNFVsTJ63S");
+
+    public Handler umbrellaHandler = new Handler();
+    public Handler chairHandler = new Handler();
+    public TextView timerTextView,timerTextView2;
+    public long umbrellaTimeLeftInMillis = 0;
+    public long chairTimeLeftInMillis = 0;
+    public boolean umbrellaTimerRunning;
+    public boolean chairTimerRunning;
+    public long umbrellaStartTimeInMillis;
+    public long chairStartTimeInMillis;
+    public  FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public DocumentReference chair1 = db.collection("chair").document("u6kqc3Aoz4wpSgVlxueV");
+    public DocumentReference productRef2 = db.collection("umbrella").document("2tapFqBsHzLNFVsTJ63S");
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
-
-
+        Intent intent = getIntent();
+        // MapsActivity classında qr kod çalıştığı zaman sepete ürün atan kod
+        if (intent != null && intent.hasExtra("scanResult")) {
+            String scanResult = intent.getStringExtra("scanResult");
+            if (scanResult.equals("u6kqc3Aoz4wpSgVlxueV")) {
+                AddChair();
+                startChairTimer();
+            } else if (scanResult.equals("2tapFqBsHzLNFVsTJ63S")) {
+                AddUmbrella();
+                startUmbrellaTimer();
+            }
+        }
         Button add_umbrella,add_chair,discard_chair,discard_umbrella,useQr;
 
         useQr = findViewById(R.id.useQr);
@@ -61,8 +72,6 @@ public class BasketActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 scanCode();
             }
-
-
 
         });
         add_umbrella.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +124,7 @@ public class BasketActivity  extends AppCompatActivity {
 
     }
 
-    private void scanCode() {
+    public void scanCode() {
         ScanOptions options = new ScanOptions();
         options.setPrompt("Scan QR to rent products / Volume up to flash on");
         options.setBeepEnabled(true);
@@ -144,13 +153,9 @@ public class BasketActivity  extends AppCompatActivity {
         }
     });
 
-    /*private void onQRCodeScanned(String qrData) {
-        if (qrData.equals("chair")) {
-            AddChair();
-        }
-    }*/
 
-    private void AddChair() {
+
+    public void AddChair() {
         chair1.update("inUse", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -166,7 +171,7 @@ public class BasketActivity  extends AppCompatActivity {
                 });
     }
 
-    private void DiscardChair() {
+    public void DiscardChair() {
         chair1.update("inUse", false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -182,7 +187,7 @@ public class BasketActivity  extends AppCompatActivity {
                 });
     }
 
-    private void AddUmbrella() {
+    public void AddUmbrella() {
         productRef2.update("inUse", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -198,7 +203,7 @@ public class BasketActivity  extends AppCompatActivity {
                 });
     }
 
-    private void DiscardUmbrella() {
+    public void DiscardUmbrella() {
         productRef2.update("inUse", false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -214,7 +219,7 @@ public class BasketActivity  extends AppCompatActivity {
                 });
     }
 
-    private void startUmbrellaTimer() {
+    public void startUmbrellaTimer() {
         umbrellaStartTimeInMillis = System.currentTimeMillis();
 
         umbrellaTimerRunning = true;
@@ -234,7 +239,7 @@ public class BasketActivity  extends AppCompatActivity {
         }, 1000);
     }
 
-    private void startChairTimer() {
+    public void startChairTimer() {
         chairStartTimeInMillis = System.currentTimeMillis();
 
         chairTimerRunning = true;
@@ -254,15 +259,15 @@ public class BasketActivity  extends AppCompatActivity {
         }, 1000);
     }
 
-    private void stopUmbrellaTimer() {
+    public void stopUmbrellaTimer() {
         umbrellaTimerRunning = false;
     }
 
-    private void stopChairTimer() {
+    public void stopChairTimer() {
         chairTimerRunning = false;
     }
 
-    private void updateUmbrellaTimerText() {
+    public void updateUmbrellaTimerText() {
         long hours = umbrellaTimeLeftInMillis / (1000 * 60 * 60);
         long minutes = (umbrellaTimeLeftInMillis % (1000 * 60 * 60)) / (1000 * 60);
         long seconds = (umbrellaTimeLeftInMillis % (1000 * 60)) / 1000;
@@ -271,7 +276,7 @@ public class BasketActivity  extends AppCompatActivity {
         timerTextView.setText(timeLeftFormatted);
     }
 
-    private void updateChairTimerText() {
+    public void updateChairTimerText() {
         long hours = chairTimeLeftInMillis / (1000 * 60 * 60);
         long minutes = (chairTimeLeftInMillis % (1000 * 60 * 60)) / (1000 * 60);
         long seconds = (chairTimeLeftInMillis % (1000 * 60)) / 1000;
