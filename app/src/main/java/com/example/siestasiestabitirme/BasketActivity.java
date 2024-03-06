@@ -22,7 +22,7 @@ import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.util.Locale;
 
-
+// deneme nehir giti bozdu
 public class BasketActivity  extends AppCompatActivity {
 
     private Handler umbrellaHandler = new Handler();
