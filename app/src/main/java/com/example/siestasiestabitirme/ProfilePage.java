@@ -112,7 +112,13 @@ public class ProfilePage extends AppCompatActivity {
     }
 
 
+    public void goPay(View view){
 
+        Intent intent= new Intent(ProfilePage.this, PaymentActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
 
 
 
