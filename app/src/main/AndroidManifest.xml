@@ -34,7 +34,8 @@
             android:exported="false" />
         <activity
             android:name=".qrscreen"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CaptureAct"
             android:screenOrientation="portrait"
@@ -74,9 +75,7 @@
             android:name=".MapsActivity"
             android:exported="true"
             android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".FeedActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>
