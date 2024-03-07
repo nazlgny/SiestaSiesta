@@ -59,8 +59,6 @@ public class BasketActivity  extends AppCompatActivity {
         Button add_umbrella,add_chair,discard_chair,discard_umbrella,useQr;
 
         useQr = findViewById(R.id.useQr);
-        add_umbrella = findViewById(R.id.add_umbrella);
-        add_chair = findViewById(R.id.add_chair);
         discard_chair = findViewById(R.id.discard_chair);
         discard_umbrella = findViewById(R.id.discard_umbrella);
         timerTextView = findViewById(R.id.timer_text_view);
@@ -74,50 +72,20 @@ public class BasketActivity  extends AppCompatActivity {
             }
 
         });
-        add_umbrella.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddUmbrella();
-                startUmbrellaTimer();
-            }
 
-
-
-        });
         discard_umbrella.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiscardUmbrella();
                 stopUmbrellaTimer();
             }
-
-
-
-        });
-
-
-        add_chair.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddChair();
-                startChairTimer();
-
-            }
-
-
-
         });
         discard_chair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiscardChair();
                 stopChairTimer();
-
-
             }
-
-
-
         });
 
 

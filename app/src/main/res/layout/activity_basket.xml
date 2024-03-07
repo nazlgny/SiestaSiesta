@@ -11,25 +11,25 @@
         android:id="@+id/timer_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="25dp"
         android:ems="10"
         android:inputType="time"
         android:text="00:00:00    "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.805"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_umbrella"
+        app:layout_constraintTop_toBottomOf="@+id/discard_umbrella"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/discard_umbrella"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="84dp"
         android:onClick="discard_umbrella"
         android:text="Discard Umbrella"
-        app:layout_constraintStart_toEndOf="@+id/add_chair"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainPage"
         tools:ignore="MissingConstraints" />
 
@@ -37,24 +37,12 @@
         android:id="@+id/discard_chair"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:onClick="discard_chair"
         android:text="Discard Chair"
-        app:layout_constraintStart_toEndOf="@+id/add_chair"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainPage"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/add_umbrella"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:onClick="add_umbrella"
-        android:text="Add Umbrella"
-        app:layout_constraintEnd_toEndOf="@+id/add_chair"
-        app:layout_constraintStart_toStartOf="@+id/add_chair"
-        app:layout_constraintTop_toBottomOf="@+id/add_chair"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -88,17 +76,6 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/useQr" />
-
-    <Button
-        android:id="@+id/add_chair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:onClick="add_chair"
-        android:text="Add Chair"
-        app:layout_constraintTop_toBottomOf="@+id/mainPage"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="26dp" />
 
     <EditText
         android:id="@+id/timer_text_view2"
