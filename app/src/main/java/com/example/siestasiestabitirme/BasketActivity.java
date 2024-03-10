@@ -44,6 +44,7 @@ public class BasketActivity  extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
+
         Intent intent = getIntent();
         // MapsActivity classında qr kod çalıştığı zaman sepete ürün atan kod
         if (intent != null && intent.hasExtra("scanResult")) {
@@ -63,6 +64,8 @@ public class BasketActivity  extends AppCompatActivity {
         discard_umbrella = findViewById(R.id.discard_umbrella);
         timerTextView = findViewById(R.id.timer_text_view);
         timerTextView2 = findViewById(R.id.timer_text_view2);
+        timerTextView.setVisibility(View.GONE);
+        timerTextView2.setVisibility(View.GONE);
 
 
         useQr.setOnClickListener(new View.OnClickListener() {
@@ -126,9 +129,12 @@ public class BasketActivity  extends AppCompatActivity {
     public void AddChair() {
         chair1.update("inUse", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
+
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepete eklendi!", Toast.LENGTH_SHORT).show();
+                        timerTextView2.setVisibility(View.VISIBLE);
+                        startChairTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -145,6 +151,8 @@ public class BasketActivity  extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepetten atıldı!", Toast.LENGTH_SHORT).show();
+                        timerTextView2.setVisibility(View.GONE);
+                        stopChairTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -161,6 +169,8 @@ public class BasketActivity  extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepete eklendi!", Toast.LENGTH_SHORT).show();
+                        timerTextView.setVisibility(View.VISIBLE);
+                        startUmbrellaTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -177,6 +187,8 @@ public class BasketActivity  extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepetten atıldı!", Toast.LENGTH_SHORT).show();
+                        timerTextView.setVisibility(View.GONE);
+                        stopUmbrellaTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
