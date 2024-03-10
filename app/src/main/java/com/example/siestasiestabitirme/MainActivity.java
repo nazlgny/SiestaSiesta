@@ -2,6 +2,7 @@ package com.example.siestasiestabitirme;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,8 +21,9 @@ public class MainActivity extends AppCompatActivity {
 // github denemesi
     //github denemesi 2
     // github denemesi 3
-    //git denemesi nehir
+    //git denemesi nehirş
     // git denemesi giray
+    //deneme
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         auth = FirebaseAuth.getInstance();
+        binding.passwordText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+
     }
 
     public void signInClicked(View view){
