@@ -66,7 +66,7 @@ public class BasketActivity  extends AppCompatActivity {
         timerTextView2 = findViewById(R.id.timer_text_view2);
         timerTextView.setVisibility(View.GONE);
         timerTextView2.setVisibility(View.GONE);
-
+//asdfghjklşlkjhgfdsaASDFGHJKJHGFDX
 
         useQr.setOnClickListener(new View.OnClickListener() {
             @Override
