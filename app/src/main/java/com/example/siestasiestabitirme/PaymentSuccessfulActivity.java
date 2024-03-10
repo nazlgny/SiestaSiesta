@@ -19,13 +19,13 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
 
         Intent intentToMain = new Intent(PaymentSuccessfulActivity.this,MainActivity.class);
         startActivity(intentToMain);
-        finish();
+
     }
     public void sendFeedbackClicked(View view){
 
-        Intent intentToMain = new Intent(PaymentSuccessfulActivity.this,FeedbackActivity.class);
-        startActivity(intentToMain);
-        finish();
+        Intent intentToFeed = new Intent(PaymentSuccessfulActivity.this,FeedbackActivity.class);
+        startActivity(intentToFeed);
+
     }
 
 }
