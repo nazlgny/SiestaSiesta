@@ -223,7 +223,7 @@ public class BasketActivity  extends AppCompatActivity {
 
                     chairHandler.postDelayed(this, 1000);
                 }
-            }
+            }// sdadsdsadasdasdasdasdasda
         }, 1000);
     }
 
