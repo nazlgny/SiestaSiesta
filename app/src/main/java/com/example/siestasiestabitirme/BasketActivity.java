@@ -223,9 +223,10 @@ public class BasketActivity  extends AppCompatActivity {
 
                     chairHandler.postDelayed(this, 1000);
                 }
-            }// sdadsdsadasdasdasdasdasdadfsfdfs
-        }, 1000);
+            }
+        }, 1000);//dasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasd
     }
+    //ljljlkjl
 
     public void stopUmbrellaTimer() {
         umbrellaTimerRunning = false;
