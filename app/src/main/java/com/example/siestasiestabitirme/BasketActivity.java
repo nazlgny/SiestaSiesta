@@ -57,7 +57,7 @@ public class BasketActivity  extends AppCompatActivity {
                 startUmbrellaTimer();
             }
         }
-        Button add_umbrella,add_chair,discard_chair,discard_umbrella,useQr;
+        Button discard_chair,discard_umbrella,useQr;
 
         useQr = findViewById(R.id.useQr);
         discard_chair = findViewById(R.id.discard_chair);
