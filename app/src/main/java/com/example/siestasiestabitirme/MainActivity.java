@@ -83,4 +83,26 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public void forgotPasswordClick(View view) {
+        String email = binding.emailText.getText().toString();
+
+        if (!email.isEmpty()) {
+            auth.sendPasswordResetEmail(email)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(MainActivity.this, "Şifre sıfırlama e-postası gönderildi. Lütfen e-posta adresinizi kontrol edin.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainActivity.this, "Şifre sıfırlama e-postası gönderilemedi: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(MainActivity.this, "Lütfen e-posta adresinizi girin", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
