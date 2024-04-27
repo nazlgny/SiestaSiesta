@@ -1,38 +1,50 @@
 package com.example.siestasiestabitirme;
 
+
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.app.Notification;
-
-
-
-import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyForegroundService extends Service {
-    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(Intent p0) {
         return null;
     }
+
+    private final Timer timer = new Timer();
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Burada arka planda yapılacak işleri gerçekleştirin.
-
-        // Servis, kullanıcıya bildirim göndererek arka planda çalıştığını belirtir.
-        startForeground(1, createNotification());
-
-        // START_STICKY, servisin sistem tarafından öldürülmesi durumunda otomatik olarak yeniden başlatılmasını sağlar.
-        return START_STICKY;
+        double time = intent.getDoubleExtra(TIME_EXTRA, 0.0);
+        timer.scheduleAtFixedRate(new TimeTask(time), 0, 1000);
+        return Service.START_NOT_STICKY;
     }
 
-    private Notification createNotification() {
-        // Bildirim oluşturma
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
-                .setContentTitle("Uygulama çalışıyor")
-                .setContentText("Uygulama arka planda çalışıyor.")
-                .setSmallIcon(R.drawable.enterscrane);
-
-        return builder.build();
+    @Override
+    public void onDestroy() {
+        timer.cancel();
+        super.onDestroy();
     }
+
+    private class TimeTask extends TimerTask {
+        private double time;
+
+        TimeTask(double time) {
+            this.time = time;
+        }
+
+        @Override
+        public void run() {
+            Intent intent = new Intent(TIMER_UPDATED);
+            time++;
+            intent.putExtra(TIME_EXTRA, time);
+            sendBroadcast(intent);
+        }
+    }
+
+    public static final String TIMER_UPDATED = "timerUpdated";
+    public static final String TIME_EXTRA = "timeExtra";
 }
