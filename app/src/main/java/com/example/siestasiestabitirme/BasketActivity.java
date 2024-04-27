@@ -29,9 +29,15 @@ import java.util.TimerTask;
 public class BasketActivity  extends AppCompatActivity {
 
 
-
+    public Handler umbrellaHandler = new Handler();
+    public Handler chairHandler = new Handler();
     public TextView timerTextView,timerTextView2;
-
+    public long umbrellaTimeLeftInMillis = 0;
+    public long chairTimeLeftInMillis = 0;
+    public boolean umbrellaTimerRunning;
+    public boolean chairTimerRunning;
+    public long umbrellaStartTimeInMillis;
+    public long chairStartTimeInMillis;
     public  FirebaseFirestore db = FirebaseFirestore.getInstance();
     public DocumentReference chair1 = db.collection("chair").document("u6kqc3Aoz4wpSgVlxueV");
     public DocumentReference productRef2 = db.collection("umbrella").document("2tapFqBsHzLNFVsTJ63S");
@@ -48,11 +54,11 @@ public class BasketActivity  extends AppCompatActivity {
         if (intent != null && intent.hasExtra("scanResult")) {
             String scanResult = intent.getStringExtra("scanResult");
             if (scanResult.equals("u6kqc3Aoz4wpSgVlxueV")) {
-                //AddChair();
-
+                AddChair();
+                startChairTimer();
             } else if (scanResult.equals("2tapFqBsHzLNFVsTJ63S")) {
-                //AddUmbrella();
-
+                AddUmbrella();
+                startUmbrellaTimer();
             }
         }
         Button discard_chair,discard_umbrella,useQr;
@@ -78,14 +84,14 @@ public class BasketActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiscardUmbrella();
-               BackgroundService.stopUmbrellaTimer();
+                stopUmbrellaTimer();
             }
         });
         discard_chair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiscardChair();
-                BackgroundService.stopChairTimer();
+                stopChairTimer();
             }
         });
 
@@ -106,19 +112,11 @@ public class BasketActivity  extends AppCompatActivity {
             // QR kodundan elde edilen ID'yi kullanarak Firestore'daki ilgili dokümanı güncelle
             if (result.getContents().equals("u6kqc3Aoz4wpSgVlxueV")) {
                 AddChair();
-
-                // Servisi başlatmak için Intent oluştur
-                Intent serviceIntent = new Intent(this, BackgroundService.class);
-                // Servisi başlat
-                startService(serviceIntent);
+                startChairTimer();
             }
             else if(result.getContents().equals("2tapFqBsHzLNFVsTJ63S")){
                 AddUmbrella();
-
-                // Servisi başlatmak için Intent oluştur
-                Intent serviceIntent = new Intent(this, BackgroundService.class);
-                // Servisi başlat
-                startService(serviceIntent);
+                startUmbrellaTimer();
             }
         } else {
             // QR kodu okunamadı veya içerik boş ise
@@ -141,7 +139,7 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepete eklendi!", Toast.LENGTH_SHORT).show();
                         timerTextView2.setVisibility(View.VISIBLE);
-
+                        startChairTimer();
                         startTimerForTimeField(); // Firestore'daki time alanını güncellemek için zamanlayıcıyı başlat
                         chairInUse = true; // Sandalye kullanımda olduğu için bu değeri true yap
                     }
@@ -211,7 +209,7 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepetten atıldı!", Toast.LENGTH_SHORT).show();
                         timerTextView2.setVisibility(View.GONE);
-
+                        stopChairTimer();
                         chairInUse = false; // Sandalye artık kullanımda değil
                         stopTimerForTimeField(); // Zamanlayıcıyı durdur
                     }
@@ -231,7 +229,7 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepete eklendi!", Toast.LENGTH_SHORT).show();
                         timerTextView.setVisibility(View.VISIBLE);
-
+                        startUmbrellaTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -249,7 +247,7 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepetten atıldı!", Toast.LENGTH_SHORT).show();
                         timerTextView.setVisibility(View.GONE);
-                        BackgroundService.stopUmbrellaTimer();
+                        stopUmbrellaTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -260,9 +258,71 @@ public class BasketActivity  extends AppCompatActivity {
                 });
     }
 
+    public void startUmbrellaTimer() {
+        umbrellaStartTimeInMillis = System.currentTimeMillis();
 
+        umbrellaTimerRunning = true;
+        umbrellaHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (umbrellaTimerRunning) {
+                    long currentTimeInMillis = System.currentTimeMillis();
+                    long umbrellaTimeElapsedInMillis = currentTimeInMillis - umbrellaStartTimeInMillis;
+                    umbrellaTimeLeftInMillis = umbrellaTimeElapsedInMillis;
 
+                    updateUmbrellaTimerText();
 
+                    umbrellaHandler.postDelayed(this, 1000);
+                }
+            }
+        }, 1000);
+    }
+
+    public void startChairTimer() {
+        chairStartTimeInMillis = System.currentTimeMillis();
+
+        chairTimerRunning = true;
+        chairHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (chairTimerRunning) {
+                    long currentTimeInMillis = System.currentTimeMillis();
+                    long chairTimeElapsedInMillis = currentTimeInMillis - chairStartTimeInMillis;
+                    chairTimeLeftInMillis = chairTimeElapsedInMillis;
+
+                    updateChairTimerText();
+
+                    chairHandler.postDelayed(this, 1000);
+                }
+            }
+        }, 1000);
+    }
+
+    public void stopUmbrellaTimer() {
+        umbrellaTimerRunning = false;
+    }
+
+    public void stopChairTimer() {
+        chairTimerRunning = false;
+    }
+
+    public void updateUmbrellaTimerText() {
+        long hours = umbrellaTimeLeftInMillis / (1000 * 60 * 60);
+        long minutes = (umbrellaTimeLeftInMillis % (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = (umbrellaTimeLeftInMillis % (1000 * 60)) / 1000;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+        timerTextView.setText(timeLeftFormatted);
+    }
+
+    public void updateChairTimerText() {
+        long hours = chairTimeLeftInMillis / (1000 * 60 * 60);
+        long minutes = (chairTimeLeftInMillis % (1000 * 60 * 60)) / (1000 * 60);
+        long seconds = (chairTimeLeftInMillis % (1000 * 60)) / 1000;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+        timerTextView2.setText(timeLeftFormatted);
+    }
 
 
 
