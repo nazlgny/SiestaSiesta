@@ -45,6 +45,7 @@ public class BasketActivity  extends AppCompatActivity {
     public  FirebaseFirestore db = FirebaseFirestore.getInstance();
     public DocumentReference chair1 = db.collection("chair").document("u6kqc3Aoz4wpSgVlxueV");
     public DocumentReference productRef2 = db.collection("umbrella").document("2tapFqBsHzLNFVsTJ63S");
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
 
@@ -54,7 +55,6 @@ public class BasketActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_basket);
 
         Intent intent = getIntent();
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         // MapsActivity classında qr kod çalıştığı zaman sepete ürün atan kod
         if (intent != null && intent.hasExtra("scanResult")) {
             String scanResult = intent.getStringExtra("scanResult");
@@ -66,6 +66,8 @@ public class BasketActivity  extends AppCompatActivity {
             } else if (scanResult.equals("2tapFqBsHzLNFVsTJ63S")) {
                 AddUmbrella();
                 startUmbrellaTimer();
+                DatabaseReference ledDb = database.getReference("led");
+                ledDb.setValue(1);
             }
         }
         Button discard_chair,discard_umbrella,useQr;
@@ -120,10 +122,16 @@ public class BasketActivity  extends AppCompatActivity {
             if (result.getContents().equals("u6kqc3Aoz4wpSgVlxueV")) {
                 AddChair();
                 startChairTimer();
+                DatabaseReference ledDb = database.getReference("led");
+                ledDb.setValue(1);
+
+
             }
             else if(result.getContents().equals("2tapFqBsHzLNFVsTJ63S")){
                 AddUmbrella();
                 startUmbrellaTimer();
+                DatabaseReference ledDb = database.getReference("led");
+                ledDb.setValue(1);
             }
         } else {
             // QR kodu okunamadı veya içerik boş ise
