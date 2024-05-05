@@ -1,7 +1,5 @@
 package com.example.siestasiestabitirme;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -11,8 +9,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.example.siestasiestabitirme.databinding.ActivityPaymentBinding;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.siestasiestabitirme.databinding.ActivityPaymentBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +26,9 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityPaymentBinding binding = ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        Intent intent = getIntent();
+        double price = intent.getDoubleExtra("price",0.0);
+        String priceString = String.valueOf(price);
         //WebView myWebView = (WebView) findViewById(R.id.webview);
 
         WebView myWebView = binding.webview;
@@ -54,8 +55,8 @@ public class PaymentActivity extends AppCompatActivity {
 
                         paymentBody.put("locale", "tr");
                         paymentBody.put("conversationId", "123456789");
-                        paymentBody.put("price", "50.19");
-                        paymentBody.put("paidPrice", "50.19");
+                        paymentBody.put("price", priceString);
+                        paymentBody.put("paidPrice", priceString);
                         paymentBody.put("currency", "TRY");
                         JSONArray enabledInstallments = new JSONArray();
                         enabledInstallments.put(2);
@@ -71,11 +72,11 @@ public class PaymentActivity extends AppCompatActivity {
                         JSONObject buyer = new JSONObject();
 
                         buyer.put("id", "BY789");
-                        buyer.put("name", "John");
-                        buyer.put("surname", "Buyer");
+                        buyer.put("name", "Nehir");
+                        buyer.put("surname", "Ulu");
                         buyer.put("identityNumber", "74300864791");
-                        buyer.put("email", "john.buyer@mail.com");
-                        buyer.put("gsmNumber", "+905555555555");
+                        buyer.put("email", "nehirulu02test@email.com");
+                        buyer.put("gsmNumber", "+905350000000");
                         buyer.put("registrationAddress", "Adres");
                         buyer.put("city", "Istanbul");
                         buyer.put("country", "Turkey");
@@ -85,7 +86,7 @@ public class PaymentActivity extends AppCompatActivity {
                         JSONObject shippingAddress = new JSONObject();
 
                         shippingAddress.put("address", "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-                        shippingAddress.put("contactName", "John Buyer");
+                        shippingAddress.put("contactName", "Nehir Ulu");
                         shippingAddress.put("city", "Istanbul");
                         shippingAddress.put("country", "Turkey");
                         paymentBody.put("shippingAddress", shippingAddress);
@@ -93,7 +94,7 @@ public class PaymentActivity extends AppCompatActivity {
                         JSONObject billingAddress = new JSONObject();
 
                         billingAddress.put("address", "Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1");
-                        billingAddress.put("contactName", "John Buyer");
+                        billingAddress.put("contactName", "Nehir Ulu");
                         billingAddress.put("city", "Istanbul");
                         billingAddress.put("country", "Turkey");
                         paymentBody.put("billingAddress", billingAddress);
@@ -102,7 +103,7 @@ public class PaymentActivity extends AppCompatActivity {
                         JSONObject basketItem1 = new JSONObject();
 
                         basketItem1.put("id", "BI101");
-                        basketItem1.put("price", "50.19");
+                        basketItem1.put("price", priceString);
                         basketItem1.put("name", "Binocular");
                         basketItem1.put("category1", "Collectibles");
                         basketItem1.put("itemType", "PHYSICAL");

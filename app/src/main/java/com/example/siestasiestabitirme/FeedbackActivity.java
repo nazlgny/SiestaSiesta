@@ -1,14 +1,14 @@
 package com.example.siestasiestabitirme;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RatingBar;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +33,7 @@ public class FeedbackActivity extends AppCompatActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         feedback = (EditText) findViewById(R.id.feedback);
 
-        Ref = FirebaseDatabase.getInstance().getReferenceFromUrl("https://siestasiesta-2d852-default-rtdb.firebaseio.com/");
+        Ref = FirebaseDatabase.getInstance().getReferenceFromUrl("siestasiesta-2d852-default-rtdb.firebaseio.com");
     }
 
     public void feedbacksent(View view) {
