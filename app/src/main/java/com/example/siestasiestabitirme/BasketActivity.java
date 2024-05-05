@@ -16,14 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 import java.util.Timer;
@@ -47,8 +49,20 @@ public class BasketActivity  extends AppCompatActivity {
     public DocumentReference productRef2 = db.collection("umbrella").document("2tapFqBsHzLNFVsTJ63S");
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    DatabaseReference chairSecondsRef = database.getReference("seconds");
 
+    DatabaseReference chairMinutesRef = database.getReference("minutes");
 
+    DatabaseReference chairHoursRef = database.getReference("hours");
+    DatabaseReference umbrellaSecondsRef = database.getReference("seconds");
+
+    DatabaseReference inUse = database.getReference("inUse");
+    DatabaseReference uInUse = database.getReference("uInUse");
+    DatabaseReference ledDb = database.getReference("led");
+    long seconds=0;
+    long minutes=0;
+    long hours=0;
+    static double price=0.0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +74,13 @@ public class BasketActivity  extends AppCompatActivity {
             String scanResult = intent.getStringExtra("scanResult");
             if (scanResult.equals("u6kqc3Aoz4wpSgVlxueV")) {
                 AddChair();
-                startChairTimer();
-                DatabaseReference ledDb = database.getReference("led");
+                // startChairTimer();
+
                 ledDb.setValue(1);
             } else if (scanResult.equals("2tapFqBsHzLNFVsTJ63S")) {
                 AddUmbrella();
-                startUmbrellaTimer();
-                DatabaseReference ledDb = database.getReference("led");
+                //startUmbrellaTimer();
+
                 ledDb.setValue(1);
             }
         }
@@ -93,20 +107,122 @@ public class BasketActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DiscardUmbrella();
-                stopUmbrellaTimer();
+                //stopUmbrellaTimer();
             }
         });
         discard_chair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DiscardChair();
-                stopChairTimer();
+                //stopChairTimer();
             }
         });
 
 
 
+        chairSecondsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                     seconds = dataSnapshot.getValue(Long.class);
+                    timerTextView2.setVisibility(View.VISIBLE);
+                    updateTimerText();
+
+                } else {
+                    timerTextView2.setText("00:00:00");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BasketActivity.this, "Failed to read timer.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        chairMinutesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                     minutes = dataSnapshot.getValue(Long.class);
+
+                    timerTextView2.setVisibility(View.VISIBLE);
+                    updateTimerText();
+                } else {
+                   // timerTextView2.setText("00:00:00");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BasketActivity.this, "Failed to read timer.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        chairHoursRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                    long hours = dataSnapshot.getValue(Long.class);
+                  //  timerTextView2.setText(formatTime(seconds,minutes,hours));
+                    timerTextView2.setVisibility(View.VISIBLE);
+                    updateTimerText();
+                } else {
+                  //  timerTextView2.setText("00:00:00");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BasketActivity.this, "Failed to read timer.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+        // Setup listener for umbrella seconds
+        umbrellaSecondsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                   long  Useconds = dataSnapshot.getValue(Long.class);
+                    timerTextView.setVisibility(View.VISIBLE);
+                    long Uminutes = dataSnapshot.getValue(Long.class);
+                    timerTextView.setVisibility(View.VISIBLE);
+                    long Uhours = dataSnapshot.getValue(Long.class);
+                   // timerTextView.setText(formatTime(seconds,minutes,hours));
+                    timerTextView.setVisibility(View.VISIBLE);
+                } else {
+                   // timerTextView.setText("00:00:00");
+                }
+            }
+
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(BasketActivity.this, "Failed to read timer.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        timerTextView2.setText(formatTime(seconds,minutes,hours));
     }
+
+    private void updateTimerText() {
+        timerTextView2.setVisibility(View.VISIBLE);
+        timerTextView2.setText(formatTime(seconds, minutes, hours));
+    }
+
+    private String formatTime(long seconds, long minutes, long hours) {
+       // long hour = seconds / 3600;
+       // long min = (seconds % 3600) / 60;
+       // long sec = seconds % 60;
+        return String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    public double calculatePrice(long hours, long minutes){
+        double result = (hours/60 + minutes)*0.18;
+        return result;
+    }
+
 
     public void scanCode() {
         ScanOptions options = new ScanOptions();
@@ -121,7 +237,7 @@ public class BasketActivity  extends AppCompatActivity {
             // QR kodundan elde edilen ID'yi kullanarak Firestore'daki ilgili dokümanı güncelle
             if (result.getContents().equals("u6kqc3Aoz4wpSgVlxueV")) {
                 AddChair();
-                startChairTimer();
+                //startChairTimer();
                 DatabaseReference ledDb = database.getReference("led");
                 ledDb.setValue(1);
 
@@ -129,7 +245,7 @@ public class BasketActivity  extends AppCompatActivity {
             }
             else if(result.getContents().equals("2tapFqBsHzLNFVsTJ63S")){
                 AddUmbrella();
-                startUmbrellaTimer();
+                //startUmbrellaTimer();
                 DatabaseReference ledDb = database.getReference("led");
                 ledDb.setValue(1);
             }
@@ -154,9 +270,11 @@ public class BasketActivity  extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepete eklendi!", Toast.LENGTH_SHORT).show();
                         timerTextView2.setVisibility(View.VISIBLE);
-                        startChairTimer();
+                        //startChairTimer();
                         startTimerForTimeField(); // Firestore'daki time alanını güncellemek için zamanlayıcıyı başlat
                         chairInUse = true; // Sandalye kullanımda olduğu için bu değeri true yap
+
+                        inUse.setValue(1);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -205,7 +323,8 @@ public class BasketActivity  extends AppCompatActivity {
     private void stopTimerForTimeField() {
         if (timerForTimeField != null) {
             timerForTimeField.cancel();
-            timerForTimeField = null; // Timer referansını temizle
+            timerForTimeField = null;
+            // Timer referansını temizle
         }
     }
 
@@ -217,16 +336,24 @@ public class BasketActivity  extends AppCompatActivity {
         }
     }
 
+
     public void DiscardChair() {
+        ledDb.setValue(1);
+        inUse.setValue(0);
         chair1.update("inUse", false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Sandalye sepetten atıldı!", Toast.LENGTH_SHORT).show();
                         timerTextView2.setVisibility(View.GONE);
-                        stopChairTimer();
+                        // stopChairTimer();
                         chairInUse = false; // Sandalye artık kullanımda değil
+                        inUse.setValue(0);
                         stopTimerForTimeField(); // Zamanlayıcıyı durdur
+                        price=calculatePrice(hours,minutes);
+                        Intent intent1 = new Intent(BasketActivity.this, PaymentActivity.class);
+                        intent1.putExtra("price",price);
+                        startActivity(intent1);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -238,13 +365,14 @@ public class BasketActivity  extends AppCompatActivity {
     }
 
     public void AddUmbrella() {
+        uInUse.setValue(1);
         productRef2.update("inUse", true)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepete eklendi!", Toast.LENGTH_SHORT).show();
                         timerTextView.setVisibility(View.VISIBLE);
-                        startUmbrellaTimer();
+                        //startUmbrellaTimer();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -256,13 +384,17 @@ public class BasketActivity  extends AppCompatActivity {
     }
 
     public void DiscardUmbrella() {
+        ledDb.setValue(0);
+        uInUse.setValue(0);
         productRef2.update("inUse", false)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(BasketActivity.this, "Şemsiye sepetten atıldı!", Toast.LENGTH_SHORT).show();
                         timerTextView.setVisibility(View.GONE);
-                        stopUmbrellaTimer();
+                        //stopUmbrellaTimer();
+                        Intent intent1 = new Intent(BasketActivity.this, PaymentActivity.class);
+                        startActivity(intent1);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -272,7 +404,7 @@ public class BasketActivity  extends AppCompatActivity {
                     }
                 });
     }
-
+/*
     public void startUmbrellaTimer() {
         umbrellaStartTimeInMillis = System.currentTimeMillis();
 
@@ -338,7 +470,7 @@ public class BasketActivity  extends AppCompatActivity {
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
         timerTextView2.setText(timeLeftFormatted);
     }
-
+*/
 
 
 
