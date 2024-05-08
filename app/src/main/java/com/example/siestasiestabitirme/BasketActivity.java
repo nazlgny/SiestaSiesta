@@ -220,7 +220,7 @@ public class BasketActivity  extends AppCompatActivity {
 
     public double calculatePrice(long hours, long minutes){
         double result;
-
+        //giray deneme
         if(minutes <1 && hours <1) {
             result = 0.18;
         }
