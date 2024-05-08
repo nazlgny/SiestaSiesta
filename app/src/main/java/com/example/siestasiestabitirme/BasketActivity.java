@@ -219,7 +219,15 @@ public class BasketActivity  extends AppCompatActivity {
     }
 
     public double calculatePrice(long hours, long minutes){
-        double result = (hours/60 + minutes)*0.18;
+        double result;
+
+        if(minutes <1 && hours <1) {
+            result = 0.18;
+        }
+        else {
+            result = (hours/60 + minutes)*0.18;
+
+        }
         return result;
     }
 
@@ -351,7 +359,6 @@ public class BasketActivity  extends AppCompatActivity {
                         inUse.setValue(0);
                         stopTimerForTimeField(); // Zamanlayıcıyı durdur
                         price=calculatePrice(hours,minutes);
-                        price++;  //başlangıç ücreti 1 lira
                         Intent intent1 = new Intent(BasketActivity.this, PaymentActivity.class);
                         intent1.putExtra("price",price);
                         startActivity(intent1);
