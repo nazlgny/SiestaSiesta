@@ -1,6 +1,7 @@
 package com.example.siestasiestabitirme;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ public class FeedbackActivity extends AppCompatActivity {
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         feedback = (EditText) findViewById(R.id.feedback);
 
-        Ref = FirebaseDatabase.getInstance().getReferenceFromUrl("siestasiesta-2d852-default-rtdb.firebaseio.com");
+        Ref = FirebaseDatabase.getInstance().getReferenceFromUrl("http://siestasiesta-2d852-default-rtdb.firebaseio.com/");
     }
 
     public void feedbacksent(View view) {
@@ -52,6 +53,15 @@ public class FeedbackActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(FeedbackActivity.this, "Feedback sent successfully!", Toast.LENGTH_SHORT).show();
+                        try {
+                            Thread.sleep(3000); // 2 saniye beklet
+                        } catch (InterruptedException e) {
+                            // İstisna durumunu işle (gerekiyorsa)
+                            e.printStackTrace();
+                        }
+
+                        Intent intent = new Intent(FeedbackActivity.this, MainActivity.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(FeedbackActivity.this, "Failed to send feedback: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
