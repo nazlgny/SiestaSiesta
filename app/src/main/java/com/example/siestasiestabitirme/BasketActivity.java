@@ -72,6 +72,8 @@ public class BasketActivity  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_basket);
 
+        auth = FirebaseAuth.getInstance();
+
         Intent intent = getIntent();
         // MapsActivity classında qr kod çalıştığı zaman sepete ürün atan kod
         if (intent != null && intent.hasExtra("scanResult")) {

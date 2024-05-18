@@ -35,7 +35,7 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
+        auth = FirebaseAuth.getInstance();
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         feedback = (EditText) findViewById(R.id.feedback);
 
