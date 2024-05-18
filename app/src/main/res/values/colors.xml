@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-</resources>
+    <color name="mapbackground">#A3B18A</color>
+        <color name="green">#90EE90</color> <!-- Açık yeşil renk -->
+    </resources>
