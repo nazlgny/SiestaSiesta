@@ -3,6 +3,9 @@ package com.example.siestasiestabitirme;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -13,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,6 +25,7 @@ import java.util.Map;
 
 public class FeedbackActivity extends AppCompatActivity {
 
+    private FirebaseAuth auth;
     private DatabaseReference Ref;
     private RatingBar ratingBar;
     private EditText feedback;
@@ -30,7 +35,7 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
+        auth = FirebaseAuth.getInstance();
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         feedback = (EditText) findViewById(R.id.feedback);
 
@@ -70,5 +75,36 @@ public class FeedbackActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Rating and feedback must not be empty", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.option_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==R.id.profile){
+            Intent intentToMapsActivity = new Intent(FeedbackActivity.this,MapsActivity.class);
+            startActivity(intentToMapsActivity);
+        }
+        else if(item.getItemId()==R.id.signout){
+            //Sign out
+            auth.signOut();
+
+            Intent intentToMain = new Intent(FeedbackActivity.this,MainActivity.class);
+            startActivity(intentToMain);
+            finish();
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 }
