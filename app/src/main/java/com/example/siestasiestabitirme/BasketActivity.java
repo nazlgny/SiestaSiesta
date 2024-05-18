@@ -4,6 +4,9 @@ package com.example.siestasiestabitirme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +38,7 @@ import java.util.TimerTask;
 // deneme nehir giti bozdu
 public class BasketActivity  extends AppCompatActivity {
 
-
+    private FirebaseAuth auth;
     public Handler umbrellaHandler = new Handler();
     public Handler chairHandler = new Handler();
     public TextView timerTextView,timerTextView2;
@@ -486,4 +490,39 @@ public class BasketActivity  extends AppCompatActivity {
         Intent intent = new Intent(BasketActivity.this, MapsActivity.class);
         startActivity(intent);
     }
+
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.option_menu,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==R.id.profile){
+            Intent intentToMapsActivity = new Intent(BasketActivity.this,MapsActivity.class);
+            startActivity(intentToMapsActivity);
+        }
+        else if(item.getItemId()==R.id.signout){
+            //Sign out
+            auth.signOut();
+
+            Intent intentToMain = new Intent(BasketActivity.this,MainActivity.class);
+            startActivity(intentToMain);
+            finish();
+
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
 }
