@@ -33,6 +33,7 @@
             android:layout_marginTop="228dp"
             android:background="@android:color/transparent"
             android:hint="Feedback"
+            android:textColor="#006400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.32"
             app:layout_constraintStart_toStartOf="parent"
