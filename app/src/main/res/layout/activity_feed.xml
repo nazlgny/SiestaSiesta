@@ -9,25 +9,88 @@
     android:id="@+id/coordinator"
     tools:context=".FeedbackActivity">
 
-    <EditText
-        android:id="@+id/feedback"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:hint="Feedback" />
+        android:layout_height="match_parent">
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:numStars="5"
-        android:rating="0"
-        android:stepSize="1.0" />
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="481dp"
+            android:layout_height="669dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/eeddd"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.362" />
 
-    <Button
-        android:layout_width="219dp"
+        <EditText
+            android:id="@+id/feedback"
+            android:layout_width="361dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="228dp"
+            android:background="@android:color/transparent"
+            android:hint="Feedback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:numStars="5"
+            android:rating="0"
+            android:stepSize="1.0"
+            android:scaleX="0.75"
+            android:scaleY="0.75"
+            android:progressTint="@android:color/holo_green_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feedback" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:backgroundTint="#006400"
+            android:onClick="feedbacksent"
+            android:text="Send Feedback"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.556"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="feedbacksent"
-        android:text="Send FeedBack" />
+        android:src="@drawable/enterscrane" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/enterscrane" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/enterscrane" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/eeddd" />
 
 </LinearLayout>
