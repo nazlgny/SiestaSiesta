@@ -8,34 +8,35 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="153dp"
+        android:layout_height="137dp"
         android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/pp2" />
 
     <Button
         android:id="@+id/changeEmailButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="104dp"
+        android:backgroundTint="#009d00"
         android:onClick="changeEmailClick"
         android:text="Change Email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintHorizontal_bias="0.567"
         app:layout_constraintStart_toEndOf="@+id/editTextNewEmail"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/changePasswordButton"
-        android:layout_width="159dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="161dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/green"
+        android:backgroundTint="#009d00"
         android:text="Change Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeEmailButton" />
@@ -44,13 +45,13 @@
         android:id="@+id/payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginBottom="208dp"
+        android:backgroundTint="#009d00"
         android:onClick="goPay"
         android:text="Back to Main Page"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changePasswordButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textViewEmail"
@@ -68,8 +69,8 @@
         android:id="@+id/editTextNewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="108dp"
         android:ems="10"
         android:hint="Enter your new email"
         android:inputType="textEmailAddress"
@@ -81,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="New Password"
         android:inputType="textPassword"

@@ -507,8 +507,8 @@ public class BasketActivity  extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if(item.getItemId()==R.id.profile){
-            Intent intentToMapsActivity = new Intent(BasketActivity.this,MapsActivity.class);
-            startActivity(intentToMapsActivity);
+            Intent intentToProfile = new Intent(BasketActivity.this,ProfilePage.class);
+            startActivity(intentToProfile);
         }
         else if(item.getItemId()==R.id.signout){
             //Sign out
