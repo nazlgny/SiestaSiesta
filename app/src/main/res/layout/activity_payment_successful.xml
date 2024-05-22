@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#277C2B"
         android:onClick="mainPageClicked"
+        android:textColor="#FFFFFF"
         android:text="MAIN PAGE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/backgroundImage"
-        android:layout_width="407dp"
-        android:layout_height="670dp"
+        android:layout_width="409dp"
+        android:layout_height="590dp"
         android:scaleType="centerCrop"
         android:src="@drawable/panda"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:backgroundTint="#295A2B"
         android:onClick="discard_umbrella"
         android:text="Discard Umbrella"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:backgroundTint="#295A2B"
         android:onClick="discard_chair"
         android:text="Discard Chair"
         app:layout_constraintEnd_toEndOf="@+id/discard_umbrella"
