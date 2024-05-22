@@ -1,81 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/MainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BasketActivity">
+    tools:context=".BasketActivity"
+    android:background="#D8D6DB">
 
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="407dp"
+        android:layout_height="670dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/panda"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.384"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.051" />
 
     <EditText
         android:id="@+id/timer_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="time"
         android:text="00:00:00    "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.805"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/discard_umbrella"
+        app:layout_constraintTop_toBottomOf="@+id/backgroundImage"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/discard_umbrella"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="10dp"
         android:onClick="discard_umbrella"
         android:text="Discard Umbrella"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainPage"
+        app:layout_constraintTop_toBottomOf="@+id/discard_chair"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/discard_chair"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="30dp"
         android:onClick="discard_chair"
         android:text="Discard Chair"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainPage"
+        app:layout_constraintEnd_toEndOf="@+id/discard_umbrella"
+        app:layout_constraintStart_toStartOf="@+id/discard_umbrella"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="161dp"
-        android:layout_height="195dp"
-        android:layout_marginTop="25dp"
+    <ImageButton
+        android:id="@+id/useQr"
+        android:layout_width="65dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:onClick="useQr"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/basket" />
-
-    <Button
-        android:id="@+id/useQr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:onClick="useQr"
-        android:text="Use QR code to rent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <Button
-        android:id="@+id/mainPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:onClick="backToMain"
-        android:text="Back To Main Page"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/useQr" />
+        app:srcCompat="@drawable/qrbutton"
+        tools:ignore="DuplicateIds" />
 
     <EditText
         android:id="@+id/timer_text_view2"
@@ -89,20 +87,20 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/timer_text_view"
         app:layout_constraintTop_toBottomOf="@+id/timer_text_view"
-        app:layout_constraintVertical_bias="0.304"
+        app:layout_constraintVertical_bias="0.68"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="32dp"
         android:text="Umbrella:"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.914" />
+        app:layout_constraintVertical_bias="0.94" />
 
     <TextView
         android:id="@+id/textView4"
@@ -112,7 +110,24 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/timer_text_view2"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/timer_text_view2" />
+        app:layout_constraintTop_toTopOf="@+id/timer_text_view2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/MainButton"
+        android:layout_width="65dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="5dp"
+        android:onClick="backToMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/homepagebutton"
+        tools:ignore="DuplicateIds" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

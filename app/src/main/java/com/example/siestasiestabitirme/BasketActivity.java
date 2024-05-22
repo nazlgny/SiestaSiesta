@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,8 +91,8 @@ public class BasketActivity  extends AppCompatActivity {
                 ledDb.setValue(1);
             }
         }
-        Button discard_chair,discard_umbrella,useQr;
-
+        Button discard_chair,discard_umbrella;
+        ImageButton useQr;
         useQr = findViewById(R.id.useQr);
         discard_chair = findViewById(R.id.discard_chair);
         discard_umbrella = findViewById(R.id.discard_umbrella);
